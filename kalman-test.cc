@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
   int n = 2; // Number of states
   int m = 1; // Number of measurements
 
-  double dt = 1.0/200.; // Time step
+  double dt = 1.0/1000.; // Time step
 
   Eigen::MatrixXd A(n, n); // System dynamics matrix
   Eigen::MatrixXd C(m, n); // Output matrix
@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
   // Discrete LTI projectile motion, measuring position only
 //  A << 1, dt, 0, 0, 1, dt, 0, 0, 1;
 //  C << 1, 0, 0;
-  A << 1., dt, -dt*31.4, 1.;
+  A << 1., dt, -dt*31.4*31.4, 1.;
   C << 1, 0;
 
   // Reasonable covariance matrices
@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
   std::vector<double> kalman_vec;
 //  std::cout << "t = " << t << ", " << "x_hat[0]: " << kf.state().transpose() << std::endl;
   for(int i = 0; i < observation_vec.size(); i++) {
-      if ((400 < i)  && (i < 700))
+      if ((150 < i)  && (i < 600))
       {
           R << 1000.;
           kf.setR(R);
