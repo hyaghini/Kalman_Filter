@@ -19,7 +19,19 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 # Unit Tests
 ################################
 # Add test cpp file
-add_executable( TestKalmanFilter KalmanGtest.cc ../kalman.cc)
+add_executable( TestKalmanFilter
+                KalmanGtest.cc
+                ../KalmanFilter.cc)
 # Link test executable against gtest & gtest_main
 target_link_libraries(TestKalmanFilter gtest gtest_main)
 add_test( TestKalmanFilter runUnitTests )
+
+
+if(CMAKE_COMPILER_IS_GNUCXX)
+LIST(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/CMakeModules")
+include(CodeCoverage)
+APPEND_COVERAGE_COMPILER_FLAGS()
+SETUP_TARGET_FOR_COVERAGE_LCOV(NAME TestKalmanFilter_coverage
+                              EXECUTABLE TestKalmanFilter
+                              DEPENDENCIES TestKalmanFilter)
+endif()

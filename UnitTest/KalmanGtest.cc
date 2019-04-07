@@ -2,7 +2,7 @@
 #include <Eigen/Dense>
 #include <string>
 #include <fstream>
-#include "../kalman.h"
+#include "../KalmanFilter.h"
 
 struct Statistics{
     double mean;

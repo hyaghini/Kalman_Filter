@@ -1,10 +1,3 @@
-/**
- * Test for the KalmanFilter class with 1D projectile motion.
- *
- * @author: Hayk Martirosyan
- * @date: 2014.11.15
- */
-
 #include <iostream>
 #include <vector>
 #include <Eigen/Dense>
@@ -12,7 +5,7 @@
 #include <string>
 #include <math.h>
 
-#include "kalman.h"
+#include "KalmanFilter.h"
 
 int main(int argc, char* argv[]) {
     std::vector<double> observation_vec;
