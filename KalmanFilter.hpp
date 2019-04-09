@@ -25,10 +25,15 @@
  *
  * ****************************************************
  */
+#ifndef __ESTIMATION_KALMANFILTER_H_
+#define __ESTIMATION_KALMANFILTER_H_
 
 #include <Eigen/Dense>
 
-#pragma once
+/*!
+ * @namespace estimation Kalman filter implementation for state estimation
+ */
+namespace estimation {
 
 class KalmanFilter {
 
@@ -36,21 +41,21 @@ public:
     /*!
      * @brief Specialized constructor for Kalman Filter
      *
-     * @param A : State transition matrix
-     * @param C : System output matrix
-     * @param Q : Process noise covariance
-     * @param R : Measurement noise covariance
-     * @param R : Estimation error covariance
+     * @param stateTransitionMatrix : State transition matrix
+     * @param observationMatrix : System output matrix
+     * @param processNoiseCovariance : Process noise covariance
+     * @param measurementNoiseCovariance : Measurement noise covariance
+     * @param estimationErrorCovariance : Estimation error covariance
      *
      * @return An instance of KalmanFilter
      */
     KalmanFilter(
-        double dt,
-        const Eigen::MatrixXd& A,
-        const Eigen::MatrixXd& C,
-        const Eigen::MatrixXd& Q,
-        const Eigen::MatrixXd& R,
-        const Eigen::MatrixXd& P
+        double samplingTime,
+        const Eigen::MatrixXd& stateTransitionMatrix,
+        const Eigen::MatrixXd& observationMatrix,
+        const Eigen::MatrixXd& processNoiseCovariance,
+        const Eigen::MatrixXd& measurementNoiseCovariance,
+        const Eigen::MatrixXd& estimationErrorCovariance
     );
 
     /*!
@@ -71,10 +76,9 @@ public:
      * @brief Initializes the filter with a guess for
      * state vector
      *
-     * @param t0 : Initial time
-     * @param x0 : Initial state
+     * @param initState : Initial state
      */
-    void init(double t0, const Eigen::VectorXd& x0);
+    void init(const Eigen::VectorXd& initState);
 
     /*!
      * @brief Using the system model and state vector
@@ -86,51 +90,45 @@ public:
     /*!
      * @brief Using the system output measurements, corrects
      * the predicted state vector
+     *
+     * @param measurement : Measurement vector
      */
-    void correct(const Eigen::VectorXd& y);
+    void correct(const Eigen::VectorXd& measurement);
 
     /*!
      * @brief Assigns a new value for the measurement covariance
      *
-     * @param R : New measurement covariance
+     * @param measurementNoiseCovariance : New measurement covariance
      */
-    void setR(const Eigen::MatrixXd& R);
+    void setMeasurementNoiseCovariance(const Eigen::MatrixXd& measurementNoiseCovariance);
 
     /*!
      * @brief Returns the current state vector
      *
      * @return Eigen::VectorXd : State vector
      */
-    Eigen::VectorXd state() { return x_hat; };
-
-    /*!
-     * @brief Returns system time
-     *
-     * @return double : Current system time
-     */
-    double time() { return t; };
+    Eigen::VectorXd getState();
 
 private:
-    Eigen::MatrixXd A; ///< State transition matrix
-    Eigen::MatrixXd C; ///< Observation matrix
-    Eigen::MatrixXd Q; ///< Process noise covariance
-    Eigen::MatrixXd R; ///< Measurement noise covariance
-    Eigen::MatrixXd P; ///< Estimation error covariance
-    Eigen::MatrixXd K; ///< Kalman gain
-    Eigen::MatrixXd P0; ///< Initial estimation error covariance
+    Eigen::MatrixXd m_stateTransitionMatrix; ///< State transition matrix
+    Eigen::MatrixXd m_observationMatrix; ///< Observation matrix
+    Eigen::MatrixXd m_processNoiseCovariance; ///< Process noise covariance
+    Eigen::MatrixXd m_measurementNoiseCovariance; ///< Measurement noise covariance
+    Eigen::MatrixXd m_estimationErrorCovariance; ///< Estimation error covariance
 
-    int m; ///< Number of measurements
-    int n; ///< Number of states
+    int m_numMeasurements; ///< Number of measurements
+    int m_numStates; ///< Number of states
 
-    double t0; ///< Initial time
-    double t; ///< Current time
+    double m_samplingTime; ///< Sampling time
 
-    double dt; ///< Sampling time
+    Eigen::MatrixXd m_identityMatrix; ///< n-size identity
 
-    bool initialized; ///< Indicates if the filter is initialized
+    Eigen::VectorXd m_predictedState; ///< Predicted states
+    Eigen::VectorXd m_estimatedState; ///< Corrected states
 
-    Eigen::MatrixXd I; ///< n-size identity
-
-    Eigen::VectorXd x_hat_new; ///< Predicted states
-    Eigen::VectorXd x_hat; ///< Corrected states
+    bool isInitialized; ///< Indicates if the filter is initialized
 };
+
+} // namespace estimation
+
+#endif // __ESTIMATION_KALMANFILTER_H_

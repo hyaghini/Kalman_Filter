@@ -1,3 +1,5 @@
 build/
 googletest-release-1.8.1/
-UnitTest/build/
+unittest/build/
+docs/
+FilterOutput.txt

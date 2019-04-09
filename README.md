@@ -2,8 +2,13 @@
 
 ## Introduction
 This is a basic implementation of Kalman Filter in C++. The implemented filter has been tested on a linear time invariant
+
 system. The filter is composed of two prediction and correction steps. In the prediction step, The system model is used to
-estimate the current state from the previous state. The correction step uses the measurement to reduce the estimation uncertainty 
+
+estimate the current state from the previous state. The correction step uses the measurement to reduce the estimation uncertainty.
+
+- An introduction to Kalman Filter [by TonyLacey](http://web.mit.edu/kirtley/kirtley/binlustuff/literature/control/Kalman%20filter.pdf)
+- An introduction to system discretization [wiki page](https://en.wikipedia.org/wiki/Discretization)
 
 ## Configuring CodeCoverage
 Inside the UnitTest build directory
