@@ -29,6 +29,7 @@
 #define __ESTIMATION_KALMANFILTER_H_
 
 #include <Eigen/Dense>
+#include <gtest/gtest_prod.h>
 
 /*!
  * @namespace estimation Kalman filter implementation for state estimation
@@ -36,6 +37,7 @@
 namespace estimation {
 
 class KalmanFilter {
+    friend class KalmanFilterTest;
 
 public:
     /*!
@@ -50,7 +52,6 @@ public:
      * @return An instance of KalmanFilter
      */
     KalmanFilter(
-        double samplingTime,
         const Eigen::MatrixXd& stateTransitionMatrix,
         const Eigen::MatrixXd& observationMatrix,
         const Eigen::MatrixXd& processNoiseCovariance,
@@ -119,14 +120,17 @@ private:
     int m_numMeasurements; ///< Number of measurements
     int m_numStates; ///< Number of states
 
-    double m_samplingTime; ///< Sampling time
-
     Eigen::MatrixXd m_identityMatrix; ///< n-size identity
 
     Eigen::VectorXd m_predictedState; ///< Predicted states
     Eigen::VectorXd m_estimatedState; ///< Corrected states
 
     bool isInitialized; ///< Indicates if the filter is initialized
+
+    FRIEND_TEST(KalmanFilterTest, CheckPrediction);
+    FRIEND_TEST(KalmanFilterTest, CheckEmptyInit);
+    FRIEND_TEST(KalmanFilterTest, CheckMatrixDimension);
+    FRIEND_TEST(KalmanFilterTest, Check_getState);
 };
 
 } // namespace estimation

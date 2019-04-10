@@ -20,8 +20,8 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 ################################
 # Add test cpp file
 add_executable( TestKalmanFilter
-                KalmanGtest.cc
-                ../KalmanFilter.cc)
+                KalmanGtest2.cpp
+                ../KalmanFilter.cpp)
 # Link test executable against gtest & gtest_main
 target_link_libraries(TestKalmanFilter gtest gtest_main)
 add_test( TestKalmanFilter runUnitTests )

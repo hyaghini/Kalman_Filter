@@ -2,7 +2,7 @@
 #include <Eigen/Dense>
 #include <string>
 #include <fstream>
-#include "../KalmanFilter.h"
+#include "../KalmanFilter.hpp"
 
 struct Statistics{
     double mean;
@@ -15,7 +15,7 @@ protected:
     int n = 2; // Number of states
     int m = 1; // Number of measurements
     double dt = 1.0/1000.; // Time step
-    KalmanFilter* KF;
+    estimation::KalmanFilter* KF;
 
     std::vector<double> observation_vec, originalData_vec;
     std::string observ_address = "../../observation.txt";
@@ -48,7 +48,7 @@ protected:
         R << 0.01;
         P << 0., 0., 0., 0.;
 
-        KF = new KalmanFilter(dt,A, C, Q, R, P);
+        KF = new estimation::KalmanFilter(dt,A, C, Q, R, P);
 
         ReadData(observ_address, observation_vec);
         ReadData(origData_address, originalData_vec);
@@ -88,7 +88,7 @@ TEST_F(KalmanFilterTest, CheckEstimationError)
 {
     Eigen::VectorXd x_init(n);
     x_init << observation_vec[0], 0.;
-    KF->init(dt, x_init);
+    KF->init(x_init);
 
     std::vector<double> filterOutput;
     Eigen::VectorXd y(m);
@@ -97,7 +97,7 @@ TEST_F(KalmanFilterTest, CheckEstimationError)
         y << obs;
         KF->predict();
         KF->correct(y);
-        filterOutput.push_back(KF->state()[0]);
+        filterOutput.push_back(KF->getState()[0]);
     }
 
     Statistics observ_stats = CalculateStatistics(observation_vec, originalData_vec);

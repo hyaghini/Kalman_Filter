@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
     std::cout << "P: \n" << P << std::endl;
 
     // Construct the filter
-    estimation::KalmanFilter kf(dt,A, C, Q, R, P);
+    estimation::KalmanFilter kf(A, C, Q, R, P);
 
     // Best guess of initial states
     Eigen::VectorXd x0(n);
