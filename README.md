@@ -10,6 +10,8 @@ estimate the current state from the previous state. The correction step uses the
 - An introduction to Kalman Filter [by Tony Lacey](http://web.mit.edu/kirtley/kirtley/binlustuff/literature/control/Kalman%20filter.pdf)
 - An introduction to system discretization [Wiki Page](https://en.wikipedia.org/wiki/Discretization)
 
+========================================
+
 ## Configuring CodeCoverage
 Inside the UnitTest build directory
 
@@ -21,6 +23,8 @@ Inside the UnitTest build directory
 
 * Open the report with index.html file in the generated code coverage folders in the build folder.
 
+========================================
+
 ## How to Use
 * go to the project directory
 * mkdir build
@@ -28,6 +32,8 @@ Inside the UnitTest build directory
 * cmake ..
 * make
 * ./TestKalmanFilter
+
+========================================
 
 ## Using KalmanFilter Class
 #### Define the filter with state space matrices:
@@ -56,3 +62,8 @@ At each sampling time, there are two estimation steps:
 For an example of using KalmanFilter class take a look at the TestKalmanFilter.cpp
 
 The system in the example is the discretized version of a linear oscillator.
+
+###UnitTest:
+A Googletest was designed to test the class members of the Kalman filter. There are several options to test the private members of the class.
+
+A brief discussion about these methods can be found [here](PrivateMemberTest.md).

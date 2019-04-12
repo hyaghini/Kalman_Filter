@@ -93,7 +93,13 @@ TEST_F(KalmanFilterTest, CheckMatrixDimension)
                     m_measurementNoiseCovariance,
                     m_estimationErrorCovariance);
     KF.init(m_initialState);
-    KF.predict();
+
+    try {
+        KF.predict();
+    } catch(std::runtime_error exception){
+        ASSERT_TRUE(true);
+    }
+
 }
 
 TEST_F(KalmanFilterTest, Check_getState)
