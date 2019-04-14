@@ -34,6 +34,13 @@ In this method gtest can access the protected and public members of the class by
 
 =========================================================
 
+#### Comparison between option 1 and option 2
+|Friend Test  |Inheritance  |
+|-------------|-------------|
+|Needs to include gtest Libraries and link the test cases in the class under test    | Nothing from gtest is included or linked in the class under test   |
+|Compiling and running the class depends on the gtest libraries                      | The class under test is independent of gtest libraries             |
+|Keeps the private members of the class as private                                   | Needs to modify the class and change the private members to protected |
+
 ### Option 3 - Indirect Test
 
 The private members are meant to be accessed by class members only. It is recommended that we only test the public methods.
@@ -43,3 +50,4 @@ The  public functions that have access to the private members should show how th
 issue with the private members that cannot be detected by testing the public method, it is a sign of bad design, and we should consider
 
 re-designing the class. As an example, the class can be devided into smaller classes where the private members become public members of the new classes.
+
