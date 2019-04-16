@@ -66,4 +66,4 @@ The system in the example is the discretized version of a linear oscillator.
 ###UnitTest:
 A Googletest was designed to test the class members of the Kalman filter. There are several options to test the private members of the class.
 
-A brief discussion about these methods can be found [here](PrivateMemberTest.md).
+A brief discussion about these methods can be found [Comparing Methods for Accessing Private Class Members](PrivateMemberTest.md) page.

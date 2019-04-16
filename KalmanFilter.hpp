@@ -128,9 +128,11 @@ private:
     bool isInitialized; ///< Indicates if the filter is initialized
 
     FRIEND_TEST(KalmanFilterTest, CheckPrediction);
-    FRIEND_TEST(KalmanFilterTest, CheckEmptyInit);
-    FRIEND_TEST(KalmanFilterTest, CheckMatrixDimension);
-    FRIEND_TEST(KalmanFilterTest, Check_getState);
+    FRIEND_TEST(KalmanFilterTest, CheckInitWithoutInputParams);
+    FRIEND_TEST(KalmanFilterTest, CheckPredictWithWrongMatrixDimension);
+    FRIEND_TEST(KalmanFilterTest, CheckGettingState);
+    FRIEND_TEST(KalmanFilterTest, CheckSettingMeasurementNoiseCovariance);
+    FRIEND_TEST(KalmanFilterTest, CheckCorrect);
 };
 
 } // namespace estimation
